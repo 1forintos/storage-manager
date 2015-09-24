@@ -1,0 +1,24 @@
+Raktárkezelő rendszer:
+    Három fő egység: 
+        M1 Raktárak adminisztrálása: 
+            S1_1 raktártípusok(sablonok) definiálása (pl több kocsmám/bútorraktáram van)
+            S1_2 tételkategóriák meghatározása (S1_1 -en belül)
+            S1_3 raktárak létrehozása, lehetséges tételeiknek megadása (ha sablonból generált akkor módosítása)
+            S1_4 konkrét raktárakhoz rendelt, beszállításaiához használt sablonok definiálása
+            S1_5 raktárhoz rendelt periódikusan kötelező tételfogyás rögzítés (pl minden nap éjfélig az alkalmazottnak S2_2 végrehajtása, különben értesítés a vezetőnek)
+            S1_6 (+ email-es értesítés az egyes eseményekről ha kell, ez nem vészes annyira, de jó feature)
+
+        M2 Konkrét raktár(ak) terepen történő kezelése/menedzselése: 
+            S2_1 beszállítás kezelése, aminek sablona alapból a raktár-szerkezetből származik, de módosítható az adminisztrátori felületen
+            S2_2 tételek kivételeinek kezelése
+            S2_1 raktárak közötti tranzakció (honnan hova miből mennyit, ami S2_1 és S2_2 kimenetet eredményez a háttérben)
+ 
+        M3 Megfigyelő felület:
+        	S3_1 raktárak aktuális állapota
+        	S3_2 generálható statisztikák
+
+
+Magasszintű megoldási terv:
+	- mysql adatbázis az adatok tárolására
+	- apache szerveren hosztolt webes felületek az egyes funkcionalitások eléréséhez
+	- 
