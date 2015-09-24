@@ -18,7 +18,7 @@ Raktárkezelő rendszer:
         	S3_2 generálható statisztikák
 
 
-Magasszintű megoldási terv:
+Magasszintű implementációs terv:
 	- mysql adatbázis az adatok tárolására
 	- apache szerveren hosztolt webes felületek az egyes funkcionalitások eléréséhez
-	- 
+	- mobileszközök: weboldal normális megjelenítése végett reszponzív/adaptív design a weboldalhoz (elérhető alapvetően böngészőből, de android app formájában egy webview segítségével is)
