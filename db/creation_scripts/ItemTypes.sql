@@ -4,6 +4,6 @@ CREATE TABLE ItemTypes
     name VARCHAR(255) NOT NULL UNIQUE,
     quantity_unit VARCHAR(25) NOT NULL,
     notes VARCHAR(255),
-    added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (item_type_id)
 )

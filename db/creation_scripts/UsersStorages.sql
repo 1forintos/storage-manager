@@ -3,6 +3,7 @@ CREATE TABLE UsersStorages
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     storage_id INT UNSIGNED NOT NULL,
     user_id INT UNSIGNED NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (storage_id) REFERENCES StorageInformation(storage_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),

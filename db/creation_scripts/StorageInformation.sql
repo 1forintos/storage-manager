@@ -5,7 +5,7 @@ CREATE TABLE StorageInformation
     location VARCHAR(255) NOT NULL,
     notes VARCHAR(255),
     template_id INT UNSIGNED NOT NULL,
-    added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (storage_id),
     FOREIGN KEY (template_id) REFERENCES StorageTemplateInformation(template_id)
 )
