@@ -1,0 +1,8 @@
+CREATE TABLE StorageTemplateInformation
+(
+    template_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    notes VARCHAR(255) NOT NULL,
+    added TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (template_id)
+)
