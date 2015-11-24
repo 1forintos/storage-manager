@@ -5,7 +5,7 @@ CREATE TABLE StorageTemplates
     item_type_id INT UNSIGNED NOT NULL,
     quantity INT DEFAULT 0,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (template_id),
+    PRIMARY KEY (id),
     FOREIGN KEY (template_id) REFERENCES StorageTemplateInformation(template_id),
     FOREIGN KEY (item_type_id) REFERENCES ItemTypes(item_type_id),
     UNIQUE `unique_template_record`(`template_id`, `item_type_id`)

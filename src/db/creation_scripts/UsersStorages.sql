@@ -7,5 +7,5 @@ CREATE TABLE UsersStorages
     PRIMARY KEY (id),
     FOREIGN KEY (storage_id) REFERENCES StorageInformation(storage_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
-    UNIQUE `unique_records`(`storage_id`, `user_id`);
+    UNIQUE `unique_records`(`storage_id`, `user_id`)
 )
