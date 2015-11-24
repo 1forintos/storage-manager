@@ -5,7 +5,7 @@ CREATE TABLE UsersStorages
     user_id INT UNSIGNED NOT NULL,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
-    FOREIGN KEY (storage_id) REFERENCES StorageInformation(storage_id),
+    FOREIGN KEY (storage_id) REFERENCES Storages(storage_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id),
     UNIQUE `unique_records`(`storage_id`, `user_id`)
 )

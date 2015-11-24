@@ -1,4 +1,4 @@
-CREATE TABLE StorageInformation
+CREATE TABLE Storages
 (
     storage_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL UNIQUE,
@@ -7,5 +7,5 @@ CREATE TABLE StorageInformation
     template_id INT UNSIGNED NOT NULL,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (storage_id),
-    FOREIGN KEY (template_id) REFERENCES StorageTemplateInformation(template_id)
+    FOREIGN KEY (template_id) REFERENCES StorageTemplates(template_id)
 )

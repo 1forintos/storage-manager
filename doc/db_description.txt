@@ -1,0 +1,59 @@
+ItemTypes: types of items that may be stored in storages
+	- item_type_id
+	- name
+	- quantity_unit: readable unit description for the users
+	- notes
+	- timestamp: timestamp of adding the record
+
+StorageTemplates: basic information about the available storage templates
+	- template_id
+	- name
+	- notes
+	- timestamp: timestamp of adding the record
+
+StorageTemplateItems: information of intial items stored in a storage that uses this template
+	- id
+	- template_id (StorageTemplates)
+	- item_type_id (ItemTypes)
+	- quantity (there is ItemTypes.quantity_unit * StoredItems.quantity real amount of this item_type stored in Storages.storage_id storage)
+	- timestamp
+
+Storages: basic information of the existing storages
+	- storage_id
+	- name
+	- location
+	- notes
+	- template_id (StorageTemplates)
+	- timestamp: timestamp of adding the record
+
+StoredItems: all items stored connected to the storages they are stored in
+	- id
+	- storage_id (Storages)
+	- item_type_id (ItemTypes)
+	- quantity (same as in StorageTemplateItems)
+	- timestamp: timestamp of adding the record
+
+Users: information of the registered users
+	- user_id
+	- login_name
+	- password
+	- user_type [admin, manager, storage_employee]
+	- timestamp: timestamp of registration
+
+UsersStorages: the storages owned by the actual users
+	- id
+	- storage_id (Storages)
+	- user_id (Users)
+	- timestamp: timestamp of adding the record
+
+Events: events available for subscription by users that will result in an email message in case the event is fired
+	- event_id
+	- name
+	- notiffication_text (the body of the email sent to subscribers)
+	- timestamp: timestamp of registration
+
+EventSubscriptions: subscriptions of users to events
+	- id
+	- user_id (Users)
+	- event_id (Events)
+	- timestamp: timestamp of subscription
