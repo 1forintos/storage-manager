@@ -2,6 +2,10 @@
 <html>
   	<script>
   		// TODO check if logged in
-  		window.location.href = window.location.href  + 'login';
+  		var target = window.location.href;
+  		if(target.endsWith("index.html")) {
+  			target = target.substr(0, -10);
+  		}
+  		window.location.href = target + 'Login';
   	</script>
 </html>

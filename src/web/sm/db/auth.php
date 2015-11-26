@@ -23,7 +23,7 @@
 			$_SESSION['authenticated'] = true;
 			$_SESSION['timeout'] = time();
 			$_SESSION['user_type'] = $result->user_type;
-			$url = $GLOBALS['root'] . "main";
+			$url = $GLOBALS['root'] . "Home";
 			navigateBrowser($url);
 		} else {			
 			logout();
@@ -32,20 +32,13 @@
 
 	function logout() {
 		session_destroy();
-		$url = $GLOBALS['root'] . "login";	
+		$url = $GLOBALS['root'] . "Login";	
 		navigateBrowser($url);	
-	}
-
-	function navigateBrowser($url) {
-		header("Location: " . $url); 
-		exit();
 	}
 
 	function authenticate() {
 		if(!($_SESSION['authenticated'] && checkTimeout())) {
-			session_destroy();
-			$url = $GLOBALS['root'] . "login";	
-			navigateBrowser($url);
+			logout();
 		}
 	}
 
@@ -69,4 +62,8 @@
 		return true;
 	}
 
+	function navigateBrowser($url) {
+		header("Location: " . $url); 
+		exit();
+	}
 ?>

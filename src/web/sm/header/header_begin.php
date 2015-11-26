@@ -4,20 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.sudo /com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
 
-		<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="../header/css/main.css">
 
-		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-		<script src="js/main.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+	<script src="../header/js/main.js"></script>
+	<script src="js/script.js"></script>
   </head>
-  <body>
-	<?php require_once "main.php"; ?>
-  	<header class="navbar-inverse">
+  <body style="background-color: #AAA;">
+	<?php require_once "server_script.php"; ?>
+	<header class="navbar-inverse">
 	  	<div class="container">
 	  		<nav>
 			  <div class="container-fluid">
@@ -29,7 +32,7 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <a class="navbar-brand" href="#">Brand</a>
+			      <a class="navbar-brand" href="" onclick="navigateHome()">Home</a>
 			    </div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,15 +61,3 @@
 			</nav>			
 		</div>
 	</header>
-  	<div class="container">
-		<div class="row">
-			<div class="darkBG col-sm-6 col-xs-12">test</div>
-			<div class="darkerBG col-sm-3 col-xs-6">test</div>
-			<div class="darkestBG col-sm-3 col-xs-6">test</div>
-		</div>
-	</div>
-
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-	</body>
-</html>
