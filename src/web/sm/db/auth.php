@@ -6,7 +6,9 @@
 
 	function login() {
 		$ps = $GLOBALS['pdo']->prepare("
-			SELECT COUNT(*) AS userFound
+			SELECT 
+				COUNT(*) AS user_found,
+				user_type
 			FROM `Users` 
 			WHERE login_name = ?
 				AND password = ?
@@ -16,10 +18,11 @@
 		$password = $_POST["pass"];
 		$ps->execute(array($userName, $password));
 		$ps->setFetchMode(PDO::FETCH_OBJ);
-
-		if($ps->fetch()->userFound) {				
+		$result = $ps->fetch();
+		if($result->user_found) {				
 			$_SESSION['authenticated'] = true;
 			$_SESSION['timeout'] = time();
+			$_SESSION['user_type'] = $result->user_type;
 			$url = $GLOBALS['root'] . "main";
 			navigateBrowser($url);
 		} else {			
@@ -50,14 +53,12 @@
 		# Check for session timeout, else initiliaze time
 		if (isset($_SESSION['timeout'])) {	
 			# Check Session Time for expiry
-			#
-			# Time is in seconds. 10 * 60 = 600s = 10 minutes
-			$minutes = 0;
-			$seconds = 5;
+			$minutes = 10;
+			$seconds = 0;
 			if ($_SESSION['timeout'] + $minutes * 60 + $seconds < time()) {
 				return false;
 			} else {
-				# refresh
+				# refresh				
 				$_SESSION['timeout'] = time();
 			}
 		}

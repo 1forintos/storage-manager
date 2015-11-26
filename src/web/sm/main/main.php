@@ -1,5 +1,11 @@
 <?php
 	require_once "../db/auth.php";
-	
-	authenticate();
+
+	if(isset($_POST['value'])) {
+		if($_POST['value'] == 'logout') {
+			logout();	
+		}
+	} else {
+		authenticate();
+	}
 ?>

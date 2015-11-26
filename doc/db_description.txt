@@ -37,7 +37,7 @@ Users: information of the registered users
 	- user_id
 	- login_name
 	- password
-	- user_type [admin, manager, storage_employee]
+	- user_type [admin, owner, manager, field_worker]
 	- timestamp: timestamp of registration
 
 UsersStorages: the storages owned by the actual users
