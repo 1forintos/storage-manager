@@ -5,7 +5,7 @@ $(document).ready(function() {
 function navigateHome() {
 	$.ajax({
 		type: "POST",
-		url: "/sm/header/server_script.php",
+		url: "/sm/header/header_script.php",
 		data: {
 			value: "navigate",
 			where: "home"
@@ -19,7 +19,7 @@ function navigateHome() {
 function logout() {
    $.ajax({
 		type: "POST",
-		url: "/sm/header/server_script.php",
+		url: "/sm/header/header_script.php",
 		data: {value: "logout"}	
 	});
 }

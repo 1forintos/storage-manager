@@ -1,6 +1,7 @@
 <?php 
-	include("../header/header_begin.php"); 
-	include("../header/server_script.php"); 
+	chdir(substr(__DIR__, 0, strpos(__DIR__, "/sm/") + 3));
+	include("header/header_script.php"); 
+	include("header/header_begin.php"); 
 ?>
 
 <div id="content" class="container">
@@ -14,4 +15,4 @@
 	</div>
 </div>
 
-<?php include("../header/header_end.php"); ?>		
+<?php include("header/header_end.php"); ?>		

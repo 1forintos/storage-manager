@@ -1,6 +1,7 @@
 <?php
-	require_once "../db/db_init.php";
-	require_once "../init.php";
+	chdir(substr(__DIR__, 0, strpos(__DIR__, "/sm/") + 3));
+	require_once "db/db_init.php";
+	require_once "init.php";
 
 	session_start();
 
