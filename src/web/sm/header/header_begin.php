@@ -49,7 +49,9 @@
 							          	 <li><a href=<?php echo "\"" . $subModule["path"] . "\"";?> ><?php echo $subModule["name"]; ?></a></li>
 							          <?php endforeach; ?>
 						          </ul>
-			    			<?php endif; ?>
+			    			<?php else: ?>
+			    				<li><a href=<?php $subModule = array_shift(array_values($subModules)); echo $subModule['path'];?>><?php echo $subModule['name']; ?></a></li>
+		    				<?php endif; ?>
 			    	<?php endforeach; ?>			        
 			      </ul>
 			      <ul class="nav navbar-nav navbar-right">
