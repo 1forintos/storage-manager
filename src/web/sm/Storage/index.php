@@ -16,6 +16,9 @@
 	    Sample content
 	  </div>
 	</div>
+	<table id="table" class="table table-striped">
+	    <thead/>
+	</table>
 </div>
 
 <?php include("header/header_end.php"); ?>		

@@ -5,7 +5,9 @@
 	
 	authenticate();
 
+
 	function getRootFolder() {
 		return substr(__DIR__, 0, strpos(__DIR__, "/sm/") + 3);
 	}
+
 ?>
