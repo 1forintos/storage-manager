@@ -18,4 +18,4 @@
 	</div>
 </div>
 
-<?php include("header/header_end.php"); ?>		
+<?php include("header/header_end.php"); ?>	
