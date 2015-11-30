@@ -8,16 +8,88 @@
 		if($_POST['method'] == "loadTable") {
 			loadTable($_POST['tableName']);
 		} else if($_POST['method'] == "loadItemTypes") {
+			// for dropdown on templates
 			loadItemTypes();
 		} else if($_POST['method'] == "insertStorageTemplate") {
 			insertStorageTemplate($_POST['data']);
 		} else if($_POST['method'] == "insertItemType") {
 			insertItemType($_POST['data']);
+		} else if($_POST['method'] == "loadTableData") {
+			loadTableData($_POST['data']);
+		} else if($_POST['method'] == "updateItemType") {
+			updateItemType($_POST['data']);
+		} else if($_POST['method'] == "deleteItemType") {
+			deleteItemType($_POST['data']);
 		}
 	}
 
+	function loadTableData($tableInfo) {
+		$query = null;
+		if($tableInfo == "item_types") {
+			$query = "
+				SELECT *
+				FROM ItemTypes
+			";
+		}
+
+		if(!$query) {
+			throwError("Table not found.");
+		}
+
+		$ps = $GLOBALS['pdo']->prepare($query);
+		
+		$ps->execute();
+		$ps->setFetchMode(PDO::FETCH_OBJ);
+		$rows = $ps->fetchAll();
+		$tableData = array();
+		foreach($rows as $object) {
+			$tableData[] = array();
+			foreach($object as $key => $value) {
+				$tableData[count($tableData) - 1][$key] = utf8_encode($value);
+			}
+		}
+		$result = array(
+			"status" => "success",
+			"data" => $tableData
+		);
+		echo json_encode($result);
+	}
+
+	function deleteItemType($itemTypeId) {
+		if(itemTypeUsed($itemTypeId)) {
+			throwError("Item type is used in Storage(s).");
+		}	
+
+		$ps = $GLOBALS['pdo']->prepare("
+			DELETE FROM ItemTypes			
+			WHERE item_type_id=?			
+		");	
+
+		$success = $ps->execute(array($itemTypeId));
+		if(!$success) {
+			throwError("Failed to delete item type.");
+		}
+		echo "success";
+	}
+
+	function updateItemType($itemData) {
+		$ps = $GLOBALS['pdo']->prepare("
+			UPDATE ItemTypes
+			SET quantity_unit=?,notes=?,timestamp=CURRENT_TIMESTAMP
+			WHERE item_type_id=?			
+		");
+
+		$quantityUnit = $itemData['quantityUnit'] == null || $itemData['quantityUnit'] == '' ? 0 : $itemData['quantityUnit'];
+
+		$success = $ps->execute(array($quantityUnit, $itemData['notes'], $itemData['itemTypeId']));
+		if(!$success) {
+			throwError("Failed to insert item type.");
+		}
+		echo "success";
+	}
+
 	function insertItemType($itemData) {
-		if(itemExists($itemData['name'])) {
+		if(itemTypeExists($itemData['name'])) {
 			throwError("Item [" . $itemData['name'] . "] already exists.");
 		}
 
@@ -33,17 +105,6 @@
 			throwError("Failed to insert item type.");
 		}
 		echo "success";
-	}
-
-	function loadTable($tableName) {
-		$ps = $GLOBALS['pdo']->prepare("
-			SELECT *
-			FROM ?
-		");
-
-		$ps->execute(array($tableName));
-		$ps->setFetchMode(PDO::FETCH_OBJ);
-		$result = $ps->fetch();
 	}
 
 	function loadItemTypes() {
@@ -129,7 +190,7 @@
 		return false;
 	}
 
-	function itemExists($itemName) {
+	function itemTypeExists($itemName) {
 		$ps = $GLOBALS['pdo']->prepare("
 			SELECT COUNT(*) > 0 AS item_exists
 			FROM ItemTypes
@@ -139,6 +200,21 @@
 		$ps->execute(array($itemName));
 		$result = $ps->fetch();
 		if($result['item_exists']) {
+			return true;
+		}
+		return false;
+	}
+
+	function itemTypeUsed($itemTypeId) {
+		$ps = $GLOBALS['pdo']->prepare("
+			SELECT COUNT(*) > 0 AS item_type_used
+			FROM StorageTemplateItems
+			WHERE item_type_id = ?
+		");
+
+		$ps->execute(array($itemTypeId));
+		$result = $ps->fetch();
+		if($result['item_type_used']) {
 			return true;
 		}
 		return false;
