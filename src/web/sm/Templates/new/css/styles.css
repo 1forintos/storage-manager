@@ -17,3 +17,7 @@ hr {
 #content {
 	margin-top: 2em;
 }
+
+.danger {
+	border-color: red;
+}

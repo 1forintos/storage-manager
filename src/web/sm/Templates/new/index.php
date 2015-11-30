@@ -43,30 +43,39 @@
 	  	</div>
 		<div class="row section-label">	  		
 	     	<div class="col-sm-12">
-		      <span>Default items</span> 
-		      <button type="button" data-toggle="tooltip" title="Add new row" 
-		      		class="btn btn-default glyphicon glyphicon-plus" id="button-add-item_type"></button>	   			    
+		      <span>Default items</span> 		        			   
 			</div>
 	  	</div>
 	  	<div id="itemTypes-input-container"></div>
+	  	<div class="row section-label">	  		
+	     	<div class="col-sm-10"></div>
+	     	<div class="col-sm-2">
+		      	<button type="button" data-toggle="tooltip" title="Add new row" 
+		      		class="btn btn-default glyphicon glyphicon-plus" id="button-add-item_type"></button>	 
+      			<button type="button" data-toggle="tooltip" title="Submit" 
+		      		class="btn btn-default glyphicon glyphicon-ok" id="button-submit-template"></button>	 
+			</div>
+	  	</div>
+	  	
 	  </div> 
 	</div>
 </div>
 <!-- New input for item types -->
 <div class="row input-container input-container-item_type" style="display: none;">
-    <div class="col-sm-5">
+    <div class="col-sm-6">
      	<div class="input-group">
 		  <span class="input-group-addon">Item type</span>
 		  <select name="select-item_type" aria-describedby="basic-addon3" class="form-control selectpicker selectpicker-default select-item_type" data-live-search="true" data-size="5">
 		  </select>
 		</div>
 	</div>
-	<div class="col-sm-5">
+	<div class="col-sm-4">
 		<div class="input-group">
-		  <span class="input-group-addon" id="input-name">(Optional) Default quantity</span>
-		  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+		  <span class="input-group-addon" id="input-name">(Opt) Default quantity</span>
+		  <input type="text" class="form-control input-quantity" aria-describedby="basic-addon3">
+		  <span class="input-group-addon" id="input-quantity_unit"></span>	
 		</div>
-    </div>	
+    </div>	       
     <div class="col-sm-2">
     	<button type="button" class="btn btn-default button-remove glyphicon glyphicon-remove"  data-toggle="tooltip" title="Remove row"></button>	   			    
     </div>
