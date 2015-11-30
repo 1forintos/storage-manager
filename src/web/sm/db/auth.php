@@ -9,7 +9,8 @@
 		$ps = $GLOBALS['pdo']->prepare("
 			SELECT 
 				COUNT(*) AS user_found,
-				user_type
+				user_type,
+				user_id
 			FROM `Users` 
 			WHERE login_name = ?
 				AND password = ?
@@ -24,6 +25,7 @@
 			$_SESSION['authenticated'] = true;
 			$_SESSION['timeout'] = time();
 			$_SESSION['user_type'] = $result->user_type;
+			$_SESSION['user_id'] = $result->user_id;
 			$url = $GLOBALS['root'] . "Home";
 			navigateBrowser($url);
 		} else {			

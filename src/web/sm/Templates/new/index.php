@@ -55,8 +55,7 @@
       			<button type="button" data-toggle="tooltip" title="Submit" 
 		      		class="btn btn-default glyphicon glyphicon-ok" id="button-submit-template"></button>	 
 			</div>
-	  	</div>
-	  	
+	  	</div>	  	
 	  </div> 
 	</div>
 </div>

@@ -13,7 +13,7 @@ $(document).ready(function() {
   		submitTemplate();
   	});
 
-	loadItemTypes();
+	loadItemTypesIntoSelect();
 });
 
 function submitTemplate() {
@@ -100,12 +100,12 @@ function addNewItemType() {
 	clone.show();
 }
 
-function loadItemTypes() {
+function loadItemTypesIntoSelect() {
 	$.ajax({
 		type: "POST",
 		url: "/sm/db/db_methods.php",
 		data: {
-			method: "loadItemTypes"
+			method: "loadItemTypesForSelect"
 		},
 		success: function(results) {
 			rows = jQuery.parseJSON(results);

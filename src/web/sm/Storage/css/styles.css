@@ -1,5 +1,17 @@
 /* style rules added here will be loaded */
 
+#popup-name-container {
+	margin-bottom: 1em;
+}
+
+#container-input-notes {
+	margin-top: 1em;
+}
+
 #content {
 	margin-top: 2em;
+}
+
+.danger {
+	border-color: red;
 }
