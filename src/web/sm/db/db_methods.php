@@ -7,6 +7,8 @@
 	if(isset($_POST['method'])) {
 		if($_POST['method'] == "loadTable") {
 			loadTable($_POST['tableName']);
+		} else if($_POST['method'] == "loadStoragesForSelect") {			
+			loadStoragesForSelect();
 		} else if($_POST['method'] == "loadItemTypesForSelect") {			
 			loadItemTypesForSelect();
 		} else if($_POST['method'] == "loadTemplatesForSelect") {			
@@ -17,16 +19,26 @@
 			insertItemType($_POST['data']);
 		} else if($_POST['method'] == "insertStorage") {
 			insertStorage($_POST['data']);
+		} else if($_POST['method'] == "insertStoredItem") {
+			insertStoredItem($_POST['data']);
 		} else if($_POST['method'] == "loadTableData") {
 			loadTableData($_POST['data']);
 		} else if($_POST['method'] == "updateItemType") {
 			updateItemType($_POST['data']);
 		} else if($_POST['method'] == "updateStoredItem") {
 			updateStoredItem($_POST['data']);
+		} else if($_POST['method'] == "updateStorageTemplateItem") {
+			updateStorageTemplateItem($_POST['data']);
+		} else if($_POST['method'] == "updateStorageTemplate") {
+			updateStorageTemplate($_POST['data']);
 		} else if($_POST['method'] == "deleteItemType") {
 			deleteItemType($_POST['data']);
 		} else if($_POST['method'] == "deleteStoredItem") {
 			deleteStoredItem($_POST['data']);
+		} else if($_POST['method'] == "deleteTemplateItem") {
+			deleteTemplateItem($_POST['data']);
+		} else if($_POST['method'] == "deleteTemplate") {
+			deleteTemplate($_POST['data']);
 		}
 	}
 
@@ -53,7 +65,29 @@
 					INNER JOIN Storages
 						ON SI.storage_id = Storages.storage_id
 			";
+		} elseif($tableInfo == "templates"){
+			$query = "
+				SELECT *
+				FROM StorageTemplates
+			";
+		} elseif($tableInfo == 'template-items') {
+			$query = "
+				SELECT 
+					STI.id AS id,
+					StorageTemplates.name AS template_name,
+					IT.name AS item_name,
+					STI.quantity AS quantity,
+					IT.quantity_unit AS quantity_unit,
+					STI.timestamp AS timestamp
+				FROM 
+					ItemTypes AS IT
+					INNER JOIN StorageTemplateItems AS STI
+						ON IT.item_type_id = STI.item_type_id
+					INNER JOIN StorageTemplates
+						ON STI.template_id = StorageTemplates.template_id
+			";
 		}
+
 
 		if(!$query) {
 			throwError("Table not found.");
@@ -94,6 +128,45 @@
 		}
 		echo "success";
 	}
+	
+	function deleteTemplate($templateId) {
+		$ps = $GLOBALS['pdo']->prepare("
+			UPDATE Storages
+			SET template_id = null
+			WHERE template_id = ?
+		");
+		$ps->execute(array($templateId));
+
+		$ps = $GLOBALS['pdo']->prepare("
+			DELETE FROM StorageTemplateItems		
+			WHERE template_id = ?			
+		");			
+		$ps->execute(array($templateId));
+
+		$ps = $GLOBALS['pdo']->prepare("
+			DELETE FROM StorageTemplates		
+			WHERE template_id = ?			
+		");			
+		$ps->execute(array($templateId));
+
+		if(!$success) {
+			throwError("Failed to delete item type.");
+		}
+		echo "success";
+	}
+	
+	function deleteTemplateItem($templateItemId) {
+		$ps = $GLOBALS['pdo']->prepare("
+			DELETE FROM StorageTemplateItems			
+			WHERE id = ?			
+		");	
+
+		$success = $ps->execute(array($templateItemId));
+		if(!$success) {
+			throwError("Failed to delete item.");
+		}
+		echo "success";
+	}
 
 	function deleteStoredItem($storedItemId) {
 		$ps = $GLOBALS['pdo']->prepare("
@@ -104,6 +177,48 @@
 		$success = $ps->execute(array($storedItemId));
 		if(!$success) {
 			throwError("Failed to delete item.");
+		}
+		echo "success";
+	}
+
+	function updateStorageTemplate($templateData) {
+		$ps = $GLOBALS['pdo']->prepare("
+			SELECT COUNT(*) AS template_exists 
+			FROM StorageTemplates
+			WHERE template_id != ?
+				AND name = ?				
+		");	
+		$ps->execute(array($templateData['templateId'], $templateData['name']));
+		$result = $ps->fetch();
+		if($result['template_exists']) {
+			throwError("Another template with the name [" . $templateData['name'] . "] already exists.");
+		}		
+
+		$ps = $GLOBALS['pdo']->prepare("
+			UPDATE StorageTemplates
+			SET name = ?, notes = ?, timestamp=CURRENT_TIMESTAMP
+			WHERE template_id = ?			
+		");	
+
+		$success = $ps->execute(array($templateData['name'], $templateData['notes'], $templateData['templateId']));
+		if(!$success) {
+			throwError("Failed to insert item type.");
+		}
+		echo "success";
+	}
+	
+	function updateStorageTemplateItem($itemData) {
+		$ps = $GLOBALS['pdo']->prepare("
+			UPDATE StorageTemplateItems
+			SET quantity = ?, timestamp=CURRENT_TIMESTAMP
+			WHERE id = ?			
+		");
+
+		$quantity = $itemData['quantity'] == null || $itemData['quantity'] == '' ? null : $itemData['quantity'];
+
+		$success = $ps->execute(array($quantity, $itemData['templateItemId']));
+		if(!$success) {
+			throwError("Failed to insert item type.");
 		}
 		echo "success";
 	}
@@ -134,6 +249,25 @@
 		$quantityUnit = $itemData['quantityUnit'] == null || $itemData['quantityUnit'] == '' ? null : $itemData['quantityUnit'];
 
 		$success = $ps->execute(array($quantityUnit, $itemData['notes'], $itemData['itemTypeId']));
+		if(!$success) {
+			throwError("Failed to insert item type.");
+		}
+		echo "success";
+	}
+
+	function insertStoredItem($itemData) {
+		if(itemExists($itemData)) {
+			throwError("This Item is already stored in this Storage.");
+		}
+
+		$ps = $GLOBALS['pdo']->prepare("
+			INSERT INTO StoredItems(storage_id, item_type_id, quantity, owner_id) 
+			VALUES (?, ?, ?, ?)			
+		");
+
+		$quantity = $itemData['quantity'] == null || $itemData['quantity'] == '' ? 0 : $itemData['quantity'];
+
+		$success = $ps->execute(array($itemData['storageId'], $itemData['itemTypeId'], $quantity, $_SESSION['user_id']));
 		if(!$success) {
 			throwError("Failed to insert item type.");
 		}
@@ -234,6 +368,27 @@
 		echo json_encode($results);		
 	}
 
+	function loadStoragesForSelect() {
+		$ps = $GLOBALS['pdo']->prepare("
+			SELECT 
+				storage_id, 
+				name
+			FROM Storages
+		");
+
+		$ps->execute();
+		$result = $ps->fetchAll();
+		$results = array();		
+		$first = true;
+		foreach($result as $row) {	
+			$results[] = array();
+			$i = count($results) - 1;
+			$results[$i]['storage_id'] = $row['storage_id'];
+			$results[$i]['name'] = utf8_encode($row['name']);			
+		}				
+		echo json_encode($results);
+	}
+
 	function loadItemTypesForSelect() {
 		$ps = $GLOBALS['pdo']->prepare("
 			SELECT 
@@ -327,6 +482,22 @@
 		$ps->execute(array($storageName));
 		$result = $ps->fetch();
 		if($result['storage_exists']) {
+			return true;
+		}
+		return false;
+	}
+
+	function itemExists($itemData) {
+		$ps = $GLOBALS['pdo']->prepare("
+			SELECT COUNT(*) > 0 AS item_exists
+			FROM StoredItems
+			WHERE storage_id = ?
+				AND item_type_id = ?
+		");
+		
+		$ps->execute(array($itemData['storageId'], $itemData['itemTypeId']));
+		$result = $ps->fetch();
+		if($result['item_exists']) {
 			return true;
 		}
 		return false;

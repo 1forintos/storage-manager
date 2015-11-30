@@ -44,7 +44,7 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <a class="navbar-brand" href="" onclick="navigateHome()"><img id="logo" src="/sm/pics/logo.png"></a>
+			      <a class="navbar-brand" href="" onclick="navigateHome()"><img id="logo" class="img-responsive" alt="Home" src="/sm/pics/logo.png"></a>
 			    </div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
