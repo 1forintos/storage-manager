@@ -1,3 +1,14 @@
 body {
-	background-color: #aaa;
+	background: url(/sm/pics/background.png) no-repeat center center fixed; 
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;
+}
+
+#logo {
+	width: 2em; 
+	height: 2em;
+	position: relative;
+	bottom: 40%;
 }

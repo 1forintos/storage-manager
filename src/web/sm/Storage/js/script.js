@@ -107,7 +107,6 @@ function fillTable(tableToFill, dataType) {
 			data: dataType
 		},
 		success: function(data) {
-			console.log(data);
 			var results = $.parseJSON(data);
 			if('status' in results) {
 				if(results.status == "success") {

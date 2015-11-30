@@ -31,7 +31,7 @@
 	<script src="/sm/header/js/header.js"></script>
 	<script src="js/script.js"></script>
   </head>
-  <body style="background-color: #AAA;">
+  <body>
 	<header class="navbar-inverse">
 	  	<div class="container">
 	  		<nav>
@@ -44,7 +44,7 @@
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <a class="navbar-brand" href="" onclick="navigateHome()">Home</a>
+			      <a class="navbar-brand" href="" onclick="navigateHome()"><img id="logo" src="/sm/pics/logo.png"></a>
 			    </div>
 
 			    <!-- Collect the nav links, forms, and other content for toggling -->
