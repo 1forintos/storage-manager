@@ -13,14 +13,14 @@
 	    <h3 class="panel-title">Item Types</h3>
 	  </div>
 	  <div class="panel-body">
-	    This section list and edit available Item Types in the system.
+	    This section allows to list and edit available Item Types in the system.
 	  </div>
 	</div>
 
 	<div class="panel panel-default">	  
 	  <div class="panel-body">
 		  	<div class="row">	  		
-		     	<div class="col-sm-12">
+		     	<div class="col-sm-12 table-responsive">
 			    	<table id="table-item_types" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			    		 <thead>
 				            <tr>
@@ -28,7 +28,7 @@
 				                <th>Name</th>
 				                <th width="15%">Quantity Unit</th>
 				                <th>Notes</th>
-				                <th>Timestamp</th>
+				                <th width="18%">Timestamp</th>
 				                <th width="5%">Edit</th>
 				                <th width="8%">Delete</th>
 				            </tr>
