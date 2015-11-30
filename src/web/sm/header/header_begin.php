@@ -53,7 +53,7 @@
 			        		if(count($subModules) > 1):
 			        ?>
 						    	<li class="dropdown">
-						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $moduleName; ?> <span class="caret"></span></a>
+						          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo str_replace("_", " ", $moduleName); ?> <span class="caret"></span></a>
 						          <ul class="dropdown-menu">
 							          <?php foreach($subModules as $subModule): ?>
 							          	 <li><a href=<?php echo "\"" . $subModule["path"] . "\"";?> ><?php echo $subModule["name"]; ?></a></li>

@@ -11,7 +11,28 @@
 			loadItemTypes();
 		} else if($_POST['method'] == "insertStorageTemplate") {
 			insertStorageTemplate($_POST['data']);
+		} else if($_POST['method'] == "insertItemType") {
+			insertItemType($_POST['data']);
 		}
+	}
+
+	function insertItemType($itemData) {
+		if(itemExists($itemData['name'])) {
+			throwError("Item [" . $itemData['name'] . "] already exists.");
+		}
+
+		$ps = $GLOBALS['pdo']->prepare("
+			INSERT INTO ItemTypes(name, notes, quantity_unit) 
+			VALUES (?, ?, ?)			
+		");
+
+		$quantityUnit = $itemData['quantityUnit'] == null || $itemData['quantityUnit'] == '' ? 0 : $itemData['quantityUnit'];
+
+		$success = $ps->execute(array($itemData['name'], $itemData['notes'], $quantityUnit));
+		if(!$success) {
+			throwError("Failed to insert item type.");
+		}
+		echo "success";
 	}
 
 	function loadTable($tableName) {
@@ -103,6 +124,21 @@
 		$ps->execute(array($templateName));
 		$result = $ps->fetch();
 		if($result['table_exists']) {
+			return true;
+		}
+		return false;
+	}
+
+	function itemExists($itemName) {
+		$ps = $GLOBALS['pdo']->prepare("
+			SELECT COUNT(*) > 0 AS item_exists
+			FROM ItemTypes
+			WHERE name = ?
+		");
+
+		$ps->execute(array($itemName));
+		$result = $ps->fetch();
+		if($result['item_exists']) {
 			return true;
 		}
 		return false;

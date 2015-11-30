@@ -35,7 +35,7 @@
 					}
 					$dirSpecified = array_key_exists("dir", $subModule);
 					$newSubmoduleToLoad = array(
-						"path" =>  $dirSpecified ? $GLOBALS['root'] . $moduleName . "/" . $subModule["dir"] : $GLOBALS['root'] . $moduleName,						
+						"path" =>  $dirSpecified ? $GLOBALS['root'] . str_replace("_", "", $moduleName) . "/" . $subModule["dir"] : $GLOBALS['root'] . str_replace("_", "", $moduleName),						
 						"name" => str_replace("_", " ", $subModuleName)
 					);
 										
@@ -45,6 +45,4 @@
 		}
 		return $modulesToLoad;
 	}
-
-
 ?>
